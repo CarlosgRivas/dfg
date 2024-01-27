@@ -80,6 +80,17 @@
                     <div class="botones">
                         <input type="submit" name="boton-enviar" value="Registrarse"/>
                         <p class="mensaje" name="mensaje"></p>
+                        <?php
+                            if (isset($_GET['passError'])) {
+                                if($_GET['passError'] == 'si'){
+                                    echo '<span style="color:red; font-weight:bold; font-size:1.5em;">Las contraseñas no coinciden</span>';
+                                }
+                            } elseif (isset($_GET['valido'])) {
+                                if($_GET['valido'] == 'si'){
+                                    echo '<span style="color:green; font-weight:bold; font-size:1.5em;">Registro exitoso :)</span>';
+                                }
+                            }
+                        ?>
                     </div>
                 </form>
             </div>
