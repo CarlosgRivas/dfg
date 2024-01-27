@@ -9,6 +9,13 @@
 
         <div class="contenedor">
             <div class="login">
+                <?php
+                    if(isset($_GET['error'])) {
+                        if ($_GET['error'] == 'si') {
+                            echo '<span style="color:red; font-weight:bold; font-size:2em;">Revise los datos</span>';
+                        }
+                    }
+                ?>
                 
                 <h2>Login </br></h2>
                 <form name="login" method="post" action="validar.php" enctype="application/x-www-form-urlencoded">
@@ -28,6 +35,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="encabezado">
                 <h1>Formulario de registro</h1>
                 <p>Para registrarte, completa el formulario siguiente:</p>

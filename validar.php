@@ -16,10 +16,17 @@
 
     // Validación
     // Buscar Usuario por rut (primary key)
-    $consulta = "SELECT * FROM registros WHERE rut = '{$usuario}';";
+    $consulta = "SELECT * FROM registros WHERE rut = '{$usuario}' AND contraseña = '{$pass}';";
     $ejecutar = mysql_query($consulta, $conexion) or die('Usuario no encontrado');
     $user = mysql_fetch_array($ejecutar);
-    print_r($user);
     // Confirmar si la pass ingresada coincide con la contraseña de usuario
+    if ($user != false){
+        echo 'Usuario encontrado</br>';
+        echo 'Contraseña coincide</br>';
+        print_r($user);
+
+    } else {
+        header('Location:formulario.php?error=si');
+    }
 
 ?>
