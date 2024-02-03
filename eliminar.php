@@ -45,8 +45,8 @@ include ('sesion.php');
         ?>
 
 		<?php
-			require ('conexion.php');
 			if(isset($_POST['eliminar'])) {
+				require ('conexion.php');
 				$rut = $_POST['eliminar-registro'];
 				$consulta = "SELECT * FROM registros WHERE rut='{$rut}'";
 				$ejecutar = mysql_query($consulta, $conexion) or die('Problemas al buscar registro </br>' . mysql_errno($conexion) . ": " . mysql_error($conexion));
