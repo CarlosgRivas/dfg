@@ -19,9 +19,9 @@ require ('sesion.php');
 	<?php
 		require ('conexion.php');
 		$consulta = "SELECT * FROM registros";
-		$ejecutar = mysql_query($consulta, $conexion) or die('Problemas al buscar info </br>' . mysql_errno($conexion) . ": " . mysql_error($conexion));
+		$ejecutar = mysqli_query($conexion, $consulta) or die('Problemas al buscar info </br>' . mysqli_errno($conexion) . ": " . mysqli_error($conexion));
 		echo '<table><tr><th>Rut</th><th>Nombre</th><th>Apellido</th><th>Email</th></tr>';
-		while ($user = mysql_fetch_array($ejecutar)) {
+		while ($user = mysqli_fetch_array($ejecutar)) {
 			echo '<tr>';
 			echo "<td>{$user['rut']}</td>";
 			echo "<td>{$user['nombre']}</td>";

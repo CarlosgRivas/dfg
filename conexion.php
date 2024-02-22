@@ -1,5 +1,5 @@
 <?php
-    $conexion = mysql_connect("localhost","root","") or die('Error de conexion</br>');
-    mysql_set_charset('utf8');
-    $db = mysql_select_db('registro_usuarios', $conexion) or die('DB no encontrada..');
+    $conexion = mysqli_connect("192.168.2.102:3306","root","root") or die('Error de conexion</br>');
+    mysqli_set_charset($conexion, 'utf8');
+    $db = mysqli_select_db($conexion, 'registro_usuarios') or die('DB no encontrada..');
 ?>

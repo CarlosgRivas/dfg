@@ -18,8 +18,8 @@
     // Validación
     // Buscar Usuario por rut (primary key)
     $consulta = "SELECT * FROM registros WHERE rut = '{$usuario}' AND contraseña = '{$pass}';";
-    $ejecutar = mysql_query($consulta, $conexion) or die('Usuario no encontrado');
-    $user = mysql_fetch_array($ejecutar);
+    $ejecutar = mysqli_query($conexion, $consulta) or die('Usuario no encontrado');
+    $user = mysqli_fetch_array($ejecutar);
     // Confirmar si la pass ingresada coincide con la contraseña de usuario
     if ($user != false){
         session_start();
@@ -27,7 +27,7 @@
         $_SESSION['activo'] = true;
         
         if ($user['rut'] == 'k') {
-            header('Location:mostrar.php');
+            header('Location:modificar.php');
         }
 
     } else {

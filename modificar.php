@@ -17,9 +17,9 @@ include ('sesion.php');
 	<?php
 		require ('conexion.php');
 		$consulta = "SELECT * FROM registros";
-		$ejecutar = mysql_query($consulta, $conexion) or die('Problemas al buscar info </br>' . mysql_errno($conexion) . ": " . mysql_error($conexion));
+		$ejecutar = mysqli_query($conexion, $consulta) or die('Problemas al buscar info </br>' . mysqli_errno($conexion) . ": " . mysqli_error($conexion));
 		echo '<table><tr><th>Rut</th><th>Nombre</th><th>Apellido</th><th>Email</th></tr>';
-		while ($user = mysql_fetch_array($ejecutar)) {
+		while ($user = mysqli_fetch_array($ejecutar)) {
 			echo '<tr>';
 			echo "<td>{$user['rut']}</td>";
 			echo "<td>{$user['nombre']}</td>";
@@ -86,8 +86,8 @@ include ('sesion.php');
             require ('conexion.php');
 			$rut = $_POST['seleccionar'];
 			$consulta = "SELECT * FROM registros WHERE rut='{$rut}'";
-			$ejecutar = mysql_query($consulta, $conexion) or die('Problemas al buscar registro </br>' . mysql_errno($conexion) . ": " . mysql_error($conexion));
-			if(mysql_num_rows($ejecutar) == 0) {
+			$ejecutar = mysqli_query($conexion, $consulta) or die('Problemas al buscar registro </br>' . mysqli_errno($conexion) . ": " . mysqli_error($conexion));
+			if(mysqli_num_rows($ejecutar) == 0) {
 				header("Location:modificar.php?alerta=rutError");
 			} else {
                 unset($_POST['modificar']);
@@ -102,7 +102,7 @@ include ('sesion.php');
 
                 if (! empty($cambios) ) {
                     $consulta = "UPDATE registros SET " . $cambios . " WHERE rut='{$_POST['seleccionar']}'";
-                    $ejecutar = mysql_query($consulta, $conexion) or die('Problemas al modificar registro </br>' . mysql_errno($conexion) . ": " . mysql_error($conexion));
+                    $ejecutar = mysqli_query($conexion, $consulta) or die('Problemas al modificar registro </br>' . mysqli_errno($conexion) . ": " . mysqli_error($conexion));
                     header("Location:modificar.php");
                 } else {
                     header("Location:modificar.php?alerta=vacio");
