@@ -12,9 +12,7 @@
             <div class="login">
             <?php
                 if ( isset($_GET['error_V']) ){
-                    if ( $_GET['error_V'] == 'no' ){
-                        echo 'Ingresado exitosamente';
-                    } elseif ( $_GET['error_V'] == 'pass' ) {
+                    if ( $_GET['error_V'] == 'pass' ) {
                         echo 'Contraseña inválida';
                     } elseif ( $_GET['error_V'] == 'user' ) {
                         echo 'No existe el usuario';

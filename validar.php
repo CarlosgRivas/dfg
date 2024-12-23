@@ -1,4 +1,23 @@
 <?php
+
+    function user(){
+        switch($_POST['usuario']) {
+            case "1212":
+                header('Location: ./funciones/mostrar.php');
+                exit();
+            case "123":
+                header('Location: ./funciones/modificar.php');
+                exit();
+            case "321":
+                header('Location: ./funciones/eliminar.php');
+                exit();
+            
+        }
+    }
+
+
+
+
     require('conexion.php');
 
     $sql = 'SELECT pass FROM users WHERE rut = :rut';
@@ -18,7 +37,7 @@
         $pass = hash('md5', $_POST['pass']);
         
         if ( $pass == $result['pass'] ){
-            header('Location: formulario.php ?error_V=no');
+            user();
         } else {
             header('Location: formulario.php ?error_V=pass');
         }
