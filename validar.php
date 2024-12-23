@@ -1,7 +1,10 @@
 <?php
 
-    function user(){
-        switch($_POST['usuario']) {
+    function user($user){
+        $_SESSION['activo'] = true;
+        $_SESSION['usuario'] = $user;
+
+        switch($user) {
             case "1212":
                 header('Location: ./funciones/mostrar.php');
                 exit();
@@ -20,10 +23,12 @@
 
     require('conexion.php');
 
+    $usuario = $_POST['usuario'];
+
     $sql = 'SELECT pass FROM users WHERE rut = :rut';
 
     $query = $db->prepare($sql);
-    $query->bindParam(':rut', $_POST['usuario']);
+    $query->bindParam(':rut', $usuario);
 
     if ( ! $query->execute() ) {
         header('Location: formulario.php ?error_V=query');
@@ -37,7 +42,7 @@
         $pass = hash('md5', $_POST['pass']);
         
         if ( $pass == $result['pass'] ){
-            user();
+            user($usuario);
         } else {
             header('Location: formulario.php ?error_V=pass');
         }
