@@ -1,6 +1,7 @@
 <?php
 
     function user($user){
+        session_start();
         $_SESSION['activo'] = true;
         $_SESSION['usuario'] = $user;
 
