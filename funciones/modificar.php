@@ -96,12 +96,8 @@
         }
         
         if( isset($_POST['modificar']) ){
-            // Verifica si existe el usuario
-            $sql = 'SELECT rut FROM users WHERE rut= :seleccionar';
-            $query = $db->prepare($sql);
-            $query->bindParam(':seleccionar', $_POST['seleccionar']);
-            $query->execute() or die('Error al conectar con DB');
-            if ( empty($query->fetchAll()) ) {
+            require('funcAux.php');
+            if ( ! rutExist($db, $_POST['seleccionar']) ){
                 header('Location: modificar.php?error=rut');
                 exit();
             }
