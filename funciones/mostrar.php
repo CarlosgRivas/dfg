@@ -20,7 +20,7 @@
 			require('sesion.php');
 			require('./../conexion.php');
 
-			$sql = 'SELECT rut, CONCAT(nombre, apellido) AS nombre_completo, email FROM users';
+			$sql = 'SELECT rut, CONCAT(nombre, \' \', apellido) AS nombre_completo, email FROM users';
 			$result = ($db->query($sql))->fetchAll(PDO::FETCH_ASSOC);
 
 			
