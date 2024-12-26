@@ -26,20 +26,22 @@
 		$result = ($db->query($sql))->fetchAll(PDO::FETCH_ASSOC);
 
 
-		foreach ($result as $user) {
-			echo '<tr>';
-			echo '<td>' . $user['rut'] . '</td>';
-			echo '<td>' . $user['nombre_completo'] . '</td>';
-			echo '<td>' . $user['email'] . '</td>';
-			echo '</tr>';
+		if (! empty($result)) {
+			foreach ($result as $user) {
+				echo '<tr>';
+				echo '<td>' . $user['rut'] . '</td>';
+				echo '<td>' . $user['nombre_completo'] . '</td>';
+				echo '<td>' . $user['email'] . '</td>';
+				echo '</tr>';
+			}
 		}
 		?>
 	</table>
 	<div><br><br>
 		<p style="font-weight: bold">
 			<?php
-			if( isset($_GET['error']) ){
-				if( $_GET['error'] == 'rut' ){
+			if (isset($_GET['error'])) {
+				if ($_GET['error'] == 'rut') {
 					echo 'Rut no encontrado';
 				}
 			}

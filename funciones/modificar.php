@@ -10,8 +10,8 @@
 
 <body>
     <?php
-        require('sesion.php');
-        require('./../conexion.php');
+    require('sesion.php');
+    require('./../conexion.php');
     ?>
 
     <table>
@@ -26,12 +26,14 @@
         $result = ($db->query($sql))->fetchAll(PDO::FETCH_ASSOC);
 
 
-        foreach ($result as $user) {
-            echo '<tr>';
-            echo '<td>' . $user['rut'] . '</td>';
-            echo '<td>' . $user['nombre_completo'] . '</td>';
-            echo '<td>' . $user['email'] . '</td>';
-            echo '</tr>';
+        if (! empty($result)) {
+            foreach ($result as $user) {
+                echo '<tr>';
+                echo '<td>' . $user['rut'] . '</td>';
+                echo '<td>' . $user['nombre_completo'] . '</td>';
+                echo '<td>' . $user['email'] . '</td>';
+                echo '</tr>';
+            }
         }
         ?>
     </table>
@@ -44,11 +46,11 @@
     <div class="formulario">
         <p style="font-weight: bold">
             <?php
-                if( isset( $_GET['error'] ) ){
-                    if( $_GET['error'] == 'rut' ){
-                        echo 'Rut no encontrado';
-                    }
+            if (isset($_GET['error'])) {
+                if ($_GET['error'] == 'rut') {
+                    echo 'Rut no encontrado';
                 }
+            }
             ?>
         </p>
         <form name="registro" method="post" action="" enctype="application/x-www-form-urlencoded">
@@ -87,53 +89,52 @@
     </div>
 
     <?php
-        function cambia ($val, $key) {
-            if ( ($key == 'modificar') OR ($key == 'seleccionar') OR ( empty($val) ) ) {
-                return false;
-            } else {
-                return true;
-            }
+    function cambia($val, $key)
+    {
+        if (($key == 'modificar') or ($key == 'seleccionar') or (empty($val))) {
+            return false;
+        } else {
+            return true;
         }
-        
-        if( isset($_POST['modificar']) ){
-            require('funcAux.php');
-            if ( ! rutExist($db, $_POST['seleccionar']) ){
-                header('Location: modificar.php?error=rut');
-                exit();
-            }
+    }
 
-
-            // Se queda solamente con los campos a actualizar
-            $campos = array_filter($_POST, 'cambia', ARRAY_FILTER_USE_BOTH);
-
-            if( empty($campos) ){
-                header('Location: modificar.php');
-                exit();
-            }
-            
-            // Armado de sql
-            $sql = 'UPDATE users SET ';
-            foreach ( $campos as $key => $val ) {
-                $sql = $sql . $key . '=?, '; 
-            }
-            $sql = substr($sql, 0, -2);
-            $sql = $sql . ' WHERE rut = ? ;' ;
-
-            // Ingresando valores
-            $query = $db->prepare($sql);
-            $i = 1;
-            foreach ( $campos as $key => $val ) {
-                $query->bindValue($i, $val);
-                $i++;
-            }
-            $query->bindValue($i, $_POST['seleccionar']);
-
-            //Ejecutar y refrescar
-            $query->execute() or die('No se pudo modificar');
-            header('Location: modificar.php');     
-
-
+    if (isset($_POST['modificar'])) {
+        require('funcAux.php');
+        if (! rutExist($db, $_POST['seleccionar'])) {
+            header('Location: modificar.php?error=rut');
+            exit();
         }
+
+
+        // Se queda solamente con los campos a actualizar
+        $campos = array_filter($_POST, 'cambia', ARRAY_FILTER_USE_BOTH);
+
+        if (empty($campos)) {
+            header('Location: modificar.php');
+            exit();
+        }
+
+        // Armado de sql
+        $sql = 'UPDATE users SET ';
+        foreach ($campos as $key => $val) {
+            $sql = $sql . $key . '=?, ';
+        }
+        $sql = substr($sql, 0, -2);
+        $sql = $sql . ' WHERE rut = ? ;';
+
+        // Ingresando valores
+        $query = $db->prepare($sql);
+        $i = 1;
+        foreach ($campos as $key => $val) {
+            $query->bindValue($i, $val);
+            $i++;
+        }
+        $query->bindValue($i, $_POST['seleccionar']);
+
+        //Ejecutar y refrescar
+        $query->execute() or die('No se pudo modificar');
+        header('Location: modificar.php');
+    }
     ?>
 </body>
 
